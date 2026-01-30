@@ -9,16 +9,16 @@ import { requestSpeechPermissions, startListening } from "../src/services/speech
 import { templates } from "../src/services/templates";
 import { notesStore } from "../src/stores/notes.store";
 
-function Section({ title, items }: { title: string; items: string[] }) {
+const Section = ({ title, items }: { title: string; items: string[] }) => {
     return (
         <View style={{ padding: 12, borderWidth: 1, borderRadius: 12 }}>
             <Text style={{ fontWeight: "700", marginBottom: 6 }}>{title}</Text>
             {items?.length ? items.map((x, i) => <Text key={i} style={{ marginTop: 4 }}>{x}</Text>) : <Text style={{ opacity: 0.7 }}>—</Text>}
         </View>
     );
-}
+};
 
-export default observer(function NoteDetailScreen() {
+const NoteDetailScreen = observer(() => {
     const { id } = useLocalSearchParams<{ id: string }>();
     const note = notesStore.notes.find(n => n.id === id);
 
@@ -77,9 +77,9 @@ export default observer(function NoteDetailScreen() {
         <KeyboardAvoidingView
             behavior={"padding"}
             keyboardVerticalOffset={100}
-            style={styles.content}
+            style={styles.container}
         >
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <Text style={styles.text}>{note.title}</Text>
                 <Text style={styles.smallText}>Raw notes</Text>
                 <TextInput
@@ -89,7 +89,7 @@ export default observer(function NoteDetailScreen() {
                     editable={!isListening}
                     multiline
                 />
-                <View style={styles.voiceBtn}>
+                <View style={styles.buttonsContainer}>
                     <Pressable
                         onPress={onToggleListen}
                         style={styles.pressableBtn}
@@ -122,9 +122,9 @@ export default observer(function NoteDetailScreen() {
                 </View>
                 <Text style={styles.text}>Structured output</Text>
                 {!note.structured ? (
-                    <Text style={{ opacity: 0.7 }}>Apply a template to see structured sections.</Text>
+                    <Text style={styles.hint}>Apply a template to see structured sections.</Text>
                 ) : (
-                    <View style={{ gap: 10 }}>
+                    <View style={styles.content}>
                         <Section title="Participants" items={note.structured.participants} />
                         <Section title="Key points" items={note.structured.keyPoints} />
                         <Section
@@ -139,14 +139,16 @@ export default observer(function NoteDetailScreen() {
     );
 });
 
+export default NoteDetailScreen;
+
 const styles = StyleSheet.create({
     container: {
-        padding: 16,
-        gap: 12
+        flex: 1,
+        paddingHorizontal: 16,
     },
     content: {
         flex: 1,
-        gap: 4
+        gap: 12
     },
     text: {
         fontSize: 18,
@@ -158,12 +160,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 12,
         padding: 12,
-        minHeight: 140,
-        maxHeight: 260
+        height: 220,
     },
-    voiceBtn: {
+    buttonsContainer: {
         flexDirection: "row",
-        gap: 10
+        gap: 10,
+        paddingVertical: 12,
     },
     pressableBtn: {
         flex: 1,
@@ -182,5 +184,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderWidth: 1,
         borderRadius: 999,
-    }
+    },
+    hint: { opacity: 0.7 }
 });

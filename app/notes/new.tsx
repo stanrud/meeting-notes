@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { notesStore } from "../src/stores/notes.store";
 
-export default function NewNoteScreen() {
+const NewNoteScreen = () => {
     const [title, setTitle] = useState("New meeting");
 
     const onCreateNewNote = () => {
@@ -28,6 +28,8 @@ export default function NewNoteScreen() {
         </View>
     );
 }
+
+export default NewNoteScreen;
 
 const styles = StyleSheet.create({
     container: {

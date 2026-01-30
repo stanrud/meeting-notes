@@ -24,7 +24,6 @@ export default observer(function NotesListScreen() {
                     </Pressable>
                 )}
             />
-
             <View style={{ padding: 16 }}>
                 <Pressable
                     onPress={() => router.push("/notes/new")}
