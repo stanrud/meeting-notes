@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { observer } from "mobx-react-lite";
 import { FlatList, Pressable, Text, View } from "react-native";
-import { notesStore } from "./src/stores/notes.store";
+import { notesStore } from "../stores/notes.store";
 
 export default observer(function NotesListScreen() {
     if (!notesStore.isHydrated) return <Text style={{ padding: 16 }}>Loading…</Text>;
