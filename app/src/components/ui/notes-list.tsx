@@ -1,10 +1,10 @@
 import { router } from 'expo-router';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { notesStore } from '../../stores/notes.store';
 
-export const NotesList = observer(() => {
+const NotesList = observer(() => {
 
     const onPressNote = (itemId: string) => {
         router.push({ pathname: "/notes/[id]", params: { id: itemId } });
@@ -33,6 +33,8 @@ export const NotesList = observer(() => {
 
     );
 });
+
+export default NotesList;
 
 const styles = StyleSheet.create({
     container: {

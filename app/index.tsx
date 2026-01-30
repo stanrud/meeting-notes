@@ -1,8 +1,8 @@
 import { router } from "expo-router";
 import { observer } from "mobx-react-lite";
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { NotesList } from "./src/components/ui/notes-list";
-import { PressableButton } from "./src/components/ui/pressable-button";
+import NotesList from "./src/components/ui/notes-list";
+import PressableButton from "./src/components/ui/pressable-button";
 import { notesStore } from "./src/stores/notes.store";
 
 export default observer(function NotesListScreen() {
@@ -25,7 +25,6 @@ export default observer(function NotesListScreen() {
                 />
             </View>
             <NotesList />
-
         </View>
     );
 });

@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
-import { PressableButton } from "../src/components/ui/pressable-button";
-import { Section } from "../src/components/ui/section";
+import PressableButton from "../src/components/ui/pressable-button";
+import Section from "../src/components/ui/section";
 import { formatTodo } from "../src/helpers/string.helper";
 import { applyTemplateWithOpenAI } from "../src/services/openai.service";
 import { requestSpeechPermissions, startListening } from "../src/services/speech.service";

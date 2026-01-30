@@ -1,13 +1,12 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-
 type PressableButtonProps = {
     title: string;
     onPress: () => void;
     disabled?: boolean;
 };
 
-export const PressableButton = ({ title, onPress, disabled }: PressableButtonProps) => {
+const PressableButton = ({ title, onPress, disabled }: PressableButtonProps) => {
 
     return (
         <Pressable
@@ -20,6 +19,7 @@ export const PressableButton = ({ title, onPress, disabled }: PressableButtonPro
     );
 };
 
+export default PressableButton;
 
 const styles = StyleSheet.create({
     container: {

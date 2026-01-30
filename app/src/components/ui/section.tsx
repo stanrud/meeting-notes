@@ -6,7 +6,7 @@ type SectionProps = {
     items: string[];
 };
 
-export const Section = ({ title, items }: SectionProps) => {
+const Section = ({ title, items }: SectionProps) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{title}</Text>
@@ -14,6 +14,7 @@ export const Section = ({ title, items }: SectionProps) => {
         </View>
     );
 };
+export default Section;
 
 const styles = StyleSheet.create({
     container: {
