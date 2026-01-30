@@ -38,6 +38,7 @@ export default NotesList;
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         padding: 12,
     },
     content: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 12,
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 12
     },
 });
