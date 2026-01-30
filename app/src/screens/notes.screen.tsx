@@ -11,6 +11,7 @@ export default observer(function NotesListScreen() {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Text style={styles.title}>Meeting Notes</Text>
             <TextInput
                 value={notesStore.searchQuery}
                 onChangeText={notesStore.setSearchQuery}
@@ -35,11 +36,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
+    title: {
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        fontSize: 28,
+        fontWeight: '800'
+    },
     addBtn: {
         paddingHorizontal: 16,
     },
     search: {
-        backgroundColor:'white',
+        backgroundColor: 'white',
         borderRadius: 12,
         paddingHorizontal: 12,
         paddingVertical: 16,
