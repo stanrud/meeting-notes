@@ -7,13 +7,23 @@ const STORAGE_KEY = "meeting-notes:v1";
 export class NotesStore {
     notes: Note[] = [];
     isHydrated = false;
+    searchQuery = '';
 
     constructor() {
-        makeAutoObservable(this);
+        makeAutoObservable(this, {}, { autoBind: true });
     }
 
     get sortedNotes() {
         return [...this.notes].sort((a, b) => b.createdAt - a.createdAt);
+    }
+
+    get filteredNotes() {
+        const q = this.searchQuery.trim().toLowerCase();
+        if (!q) return this.sortedNotes;
+
+        return this.sortedNotes.filter((n) =>
+            (n.rawText ?? "").toLowerCase().includes(q)
+        );
     }
 
     async hydrate() {
@@ -26,6 +36,10 @@ export class NotesStore {
 
     private async persist() {
         await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(this.notes));
+    }
+
+    setSearchQuery(q: string) {
+        this.searchQuery = q;
     }
 
     createNote(initial?: Partial<Note>) {

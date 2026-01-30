@@ -23,7 +23,6 @@ export const PressableButton = ({ title, onPress, disabled }: PressableButtonPro
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 12,
         borderWidth: 1,
         borderRadius: 12,
