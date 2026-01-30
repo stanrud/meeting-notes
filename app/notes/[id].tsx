@@ -74,12 +74,12 @@ export default observer(function NoteDetailScreen() {
         : note.rawText;
 
     return (
-        <ScrollView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior={"padding"}
-                keyboardVerticalOffset={100}
-                style={styles.content}
-            >
+        <KeyboardAvoidingView
+            behavior={"padding"}
+            keyboardVerticalOffset={100}
+            style={styles.content}
+        >
+            <ScrollView style={styles.container}>
                 <Text style={styles.text}>{note.title}</Text>
                 <Text style={styles.smallText}>Raw notes</Text>
                 <TextInput
@@ -134,8 +134,8 @@ export default observer(function NoteDetailScreen() {
                         {note.structured.decisions?.length && <Section title="Decisions" items={note.structured.decisions} />}
                     </View>
                 )}
-            </KeyboardAvoidingView>
-        </ScrollView>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 });
 
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         padding: 12,
         minHeight: 140,
-        maxHeight: 300
+        maxHeight: 260
     },
     voiceBtn: {
         flexDirection: "row",
