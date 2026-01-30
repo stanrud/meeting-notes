@@ -6,6 +6,7 @@ import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { PressableButton } from "../src/components/ui/pressable-button";
 import { Section } from "../src/components/ui/section";
+import { formatTodo } from "../src/helpers/string.helper";
 import { applyTemplateWithOpenAI } from "../src/services/openai.service";
 import { requestSpeechPermissions, startListening } from "../src/services/speech.service";
 import { templates } from "../src/services/templates";
@@ -66,6 +67,27 @@ const NoteDetailScreen = observer(() => {
         ? `${note.rawText}${note.rawText.trim() ? "\n" : ""}${note.dictationText}`
         : note.rawText;
 
+    const renderStructuredOutput = () => {
+        return (
+            <>
+                <Text style={styles.text}>Structured output</Text>
+                {!note.structured ? (
+                    <Text style={styles.hint}>Apply a template to see structured sections.</Text>
+                ) : (
+                    <View style={styles.content}>
+                        <Section title="Participants" items={note.structured.participants ?? []} />
+                        <Section title="Key points" items={note.structured.keyPoints ?? []} />
+                        <Section
+                            title="Todos"
+                            items={note.structured.todos.map(formatTodo)}
+                        />
+                        {!!note.structured.decisions?.length ? <Section title="Decisions" items={note.structured.decisions} /> : null}
+                    </View>
+                )}
+            </>
+        );
+    }
+
     return (
         <KeyboardAvoidingView
             behavior={"padding"}
@@ -83,8 +105,15 @@ const NoteDetailScreen = observer(() => {
                     multiline
                 />
                 <View style={styles.buttonsContainer}>
-                    <PressableButton title={isListening ? "Stop 🎙️" : "Voice input 🎙️"} onPress={onToggleListen} />
-                    <PressableButton title={isApplying ? "Applying…" : "Apply template"} onPress={onApplyTemplate} disabled={isApplying || isListening} />
+                    <PressableButton
+                        title={isListening ? "Stop 🎙️" : "Voice input 🎙️"}
+                        onPress={onToggleListen}
+                    />
+                    <PressableButton
+                        title={isApplying ? "Applying…" : "Apply template"}
+                        onPress={onApplyTemplate}
+                        disabled={note.rawText.length === 0 || isApplying || isListening}
+                    />
                 </View>
 
                 <View style={styles.templatesContainer}>
@@ -98,20 +127,7 @@ const NoteDetailScreen = observer(() => {
                         </Pressable>
                     ))}
                 </View>
-                <Text style={styles.text}>Structured output</Text>
-                {!note.structured ? (
-                    <Text style={styles.hint}>Apply a template to see structured sections.</Text>
-                ) : (
-                    <View style={styles.content}>
-                        <Section title="Participants" items={note.structured.participants} />
-                        <Section title="Key points" items={note.structured.keyPoints} />
-                        <Section
-                            title="Todos"
-                            items={note.structured.todos.map(t => `• ${t.text}${t.owner ? ` (owner: ${t.owner})` : ""}${t.due ? ` (due: ${t.due})` : ""}`)}
-                        />
-                        {note.structured.decisions?.length && <Section title="Decisions" items={note.structured.decisions} />}
-                    </View>
-                )}
+                {renderStructuredOutput()}
             </ScrollView>
         </KeyboardAvoidingView>
     );
