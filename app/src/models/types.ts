@@ -13,6 +13,10 @@ export type Note = {
     rawText: string;
     createdAt: number;
 
+    dictationText?: string;
+    dictationActive?: boolean;
+    lastTranscript?: string;
+
     templateId?: NoteTemplateId;
     structured?: StructuredMeeting;
 };

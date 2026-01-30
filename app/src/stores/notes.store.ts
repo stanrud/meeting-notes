@@ -50,11 +50,49 @@ export class NotesStore {
         void this.persist();
     }
 
-    appendRawText(id: string, text: string) {
+    setDictationText(id: string, text: string) {
         const note = this.notes.find(n => n.id === id);
         if (!note) return;
-        const sep = note.rawText.trim().length ? "\n" : "";
-        note.rawText = `${note.rawText}${sep}${text}`;
+        note.dictationText = text;
+    }
+
+    commitDictation(id: string) {
+        const note = this.notes.find(n => n.id === id);
+        if (!note) return;
+        const chunk = (note.dictationText ?? '').trim();
+        if (!chunk) return;
+        const needsSep = note.rawText.trim().length > 0;
+        note.rawText = needsSep ? `${note.rawText}\n${chunk}` : chunk;
+        note.dictationText = '';
+        void this.persist();
+    }
+
+    clearDictation(id: string) {
+        const note = this.notes.find(n => n.id === id);
+        if (!note) return;
+        note.dictationText = '';
+    }
+
+    appendTranscriptDelta(id: string, fullTranscript: string) {
+        const note = this.notes.find(n => n.id === id);
+        if (!note) return;
+        const next = (fullTranscript ?? "").trim();
+        if (!next) return;
+        const prev = (note.lastTranscript ?? "").trim();
+        if (!prev) {
+            note.lastTranscript = next;
+            return;
+        }
+        if (next.startsWith(prev)) {
+            const delta = next.slice(prev.length).trimStart();
+            if (delta) {
+                const needsSpace = note.rawText.length && !note.rawText.endsWith("\n");
+                note.rawText = note.rawText + (needsSpace ? ' ' : '') + delta;
+            }
+        } else {
+            note.rawText = note.rawText.trim().length ? `${note.rawText}\n${next}` : next;
+        }
+        note.lastTranscript = next;
         void this.persist();
     }
 
