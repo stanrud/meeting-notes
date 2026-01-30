@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     },
     smallText: { fontWeight: "600" },
     textInput: {
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 12,
         padding: 12,
         height: 220,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     pressableBtn: {
         flex: 1,
         padding: 12,
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 12,
         alignItems: "center"
     },
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     templatesList: {
         paddingVertical: 8,
         paddingHorizontal: 10,
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 999,
     },
     hint: { opacity: 0.7 }

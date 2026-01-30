@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
         fontWeight: "600",
     },
     textInput: {
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 10,
         padding: 12,
     },
     pressableBtn: {
         padding: 14,
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 12,
         alignItems: "center"
     },

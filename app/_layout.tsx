@@ -11,7 +11,7 @@ export default function RootLayout() {
     return (
         <KeyboardProvider>
             <Stack>
-                <Stack.Screen name="index" options={{ title: "Meeting Notes" }} />
+                <Stack.Screen name="index" options={{ title: "Meeting Notes", headerShown: false }} />
                 <Stack.Screen name="notes/new" options={{ title: "New Note" }} />
                 <Stack.Screen name="notes/[id]" options={{ title: "Note" }} />
             </Stack>

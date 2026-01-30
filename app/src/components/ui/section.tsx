@@ -19,7 +19,7 @@ export default Section;
 const styles = StyleSheet.create({
     container: {
         padding: 12,
-        borderWidth: 1,
+        backgroundColor:'white',
         borderRadius: 12,
     },
     text: {
