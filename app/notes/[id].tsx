@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
+import { PressableButton } from "../src/components/ui/pressable-button";
 import { Section } from "../src/components/ui/section";
 import { applyTemplateWithOpenAI } from "../src/services/openai.service";
 import { requestSpeechPermissions, startListening } from "../src/services/speech.service";
@@ -82,23 +83,8 @@ const NoteDetailScreen = observer(() => {
                     multiline
                 />
                 <View style={styles.buttonsContainer}>
-                    <Pressable
-                        onPress={onToggleListen}
-                        style={styles.pressableBtn}
-                    >
-                        <Text style={styles.smallText}>
-                            {isListening ? "Stop 🎙️" : "Voice input 🎙️"}
-                        </Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={onApplyTemplate}
-                        disabled={isApplying || isListening}
-                        style={styles.pressableBtn}
-                    >
-                        <Text style={styles.smallText}>
-                            {isApplying ? "Applying…" : "Apply template"}
-                        </Text>
-                    </Pressable>
+                    <PressableButton title={isListening ? "Stop 🎙️" : "Voice input 🎙️"} onPress={onToggleListen} />
+                    <PressableButton title={isApplying ? "Applying…" : "Apply template"} onPress={onApplyTemplate} disabled={isApplying || isListening} />
                 </View>
 
                 <View style={styles.templatesContainer}>
