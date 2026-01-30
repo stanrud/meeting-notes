@@ -4,19 +4,11 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
+import { Section } from "../src/components/ui/section";
 import { applyTemplateWithOpenAI } from "../src/services/openai.service";
 import { requestSpeechPermissions, startListening } from "../src/services/speech.service";
 import { templates } from "../src/services/templates";
 import { notesStore } from "../src/stores/notes.store";
-
-const Section = ({ title, items }: { title: string; items: string[] }) => {
-    return (
-        <View style={{ padding: 12, borderWidth: 1, borderRadius: 12 }}>
-            <Text style={{ fontWeight: "700", marginBottom: 6 }}>{title}</Text>
-            {items?.length ? items.map((x, i) => <Text key={i} style={{ marginTop: 4 }}>{x}</Text>) : <Text style={{ opacity: 0.7 }}>—</Text>}
-        </View>
-    );
-};
 
 const NoteDetailScreen = observer(() => {
     const { id } = useLocalSearchParams<{ id: string }>();
